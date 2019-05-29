@@ -1,0 +1,102 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{/link/device}</name>
+		<config>
+		  <vrf xmlns="http://tail-f.com/ned/cisco-ios-xr">
+			<vrf-list>
+			  <name>vpn{string(../vpn-id)}</name>
+			  <description>L3 VPN for customer {/customer}</description>
+			  <address-family>
+				<ipv4>
+				  <unicast>
+					<import>
+					  <route-target>
+						<address-list>
+						  <name>1:{string(../vpn-id)}</name>
+						</address-list>
+					  </route-target>
+					</import>
+					<export>
+					  <route-target>
+						<address-list>
+						  <name>1:{string(../vpn-id)}</name>
+						</address-list>
+					  </route-target>
+					</export>
+				  </unicast>
+				</ipv4>
+			  </address-family>
+			</vrf-list>
+		  </vrf>
+		  <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+			<GigabitEthernet>
+			  <id>{interface}</id>
+			  <description>Connection to Customer ACME - Site 9</description>
+			  <vrf>vpn{string(../vpn-id)}</vrf>
+			  <ipv4>
+				<address>
+				  <ip>172.31.{link-id}.1</ip>
+				  <mask>255.255.255.252</mask>
+				</address>
+			  </ipv4>
+			</GigabitEthernet>
+		  </interface>
+		  <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+			<?if {routing-protocol='static'}?>
+			<static>
+			  <address-family>
+				<ipv4>
+				  <unicast>
+					<routes>
+					  <net>{string(static/prefix)}</net>
+					  <interface>GigabitEthernet{interface}</interface>
+					  <address>172.31.{string(link-id)}.2</address>
+					</routes>
+				  </unicast>
+				</ipv4>
+			  </address-family>
+			</static>
+			<?end?>
+			<?if {routing-protocol='bgp'}?>
+			<bgp>
+			  <bgp-no-instance>
+				<id>1</id>
+				<vrf>
+				  <name>vpn{string(../vpn-id)}</name>
+				  <rd>1:{string(../vpn-id)}</rd>
+				  <address-family>
+					<ipv4>
+					  <unicast>
+						<redistribute>
+						  <connected/>
+						  <static/>
+						</redistribute>
+					  </unicast>
+					</ipv4>
+				  </address-family>
+				  <neighbor>
+					<id>172.31.{link-id}.6</id>
+					<address-family>
+					  <ipv4>
+						<unicast>
+						  <route-policy>
+							<direction>in</direction>
+							<name>PASS</name>
+						  </route-policy>
+						  <as-override/>
+						  <default-originate/>
+						</unicast>
+					  </ipv4>
+					</address-family>
+				  </neighbor>
+				</vrf>
+			  </bgp-no-instance>
+			</bgp>
+			<?end?>
+		  </router>
+		</config>
+    </device>
+  </devices>
+</config-template>
+
