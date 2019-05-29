@@ -13,19 +13,11 @@ class ServiceCallbacks(Service):
     @Service.create
     def cb_create(self, tctx, root, service, proplist):
         self.log.info('Service create(service=', service._path, ')')
-        
-        # device_type = root.devices.device[service.link.device].device_type.cli.ned_id
 
         vars = ncs.template.Variables()
         vars.add('DUMMY', '127.0.0.1')
         template = ncs.template.Template(service)
-        
-        for link in service.link:
-            device_type = root.devices.device[link.device].device_type.cli.ned_id
-            if device_type ==  'ios-id:cisco-ios':
-                template.apply('l3vpn-ios-template', vars)
-            elif device_type ==  'cisco-ios-xr-id:cisco-ios-xr':
-                template.apply('l3vpn-iosxr-template', vars)
+        template.apply('l3vpn-template', vars)
 
     # The pre_modification() and post_modification() callbacks are optional,
     # and are invoked outside FASTMAP. pre_modification() is invoked before

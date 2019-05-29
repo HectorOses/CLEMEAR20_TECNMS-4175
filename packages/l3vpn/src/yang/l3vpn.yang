@@ -29,9 +29,7 @@ module l3vpn {
     
 	  leaf vpn-id { 
 	    tailf:info "Service Instance ID"; 
-		type uint32 {
-		  range "10001..19999";
-		}
+		type uint32; 
 	  }
 	  
 	  leaf customer {
@@ -69,7 +67,6 @@ module l3vpn {
 		leaf routing-protocol { 
 		  tailf:info "Routing option on PE-CE link"; 
 		  type enumeration { 
-		    enum bgp; 
 			enum rip; 
 			enum static; 
 		  }
