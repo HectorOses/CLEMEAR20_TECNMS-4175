@@ -31,10 +31,6 @@
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/l3vpn",
 					"protocol": "http",
@@ -86,10 +82,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
+					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
 				},
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services?dry-run",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services?dry-run=native",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -103,7 +99,7 @@
 					"query": [
 						{
 							"key": "dry-run",
-							"value": null
+							"value": "native"
 						}
 					]
 				}
@@ -132,22 +128,22 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/yang-data+json",
-						"type": "text"
+						"type": "text",
+						"value": "application/yang-data+json"
 					},
 					{
 						"key": "",
-						"value": "",
 						"type": "text",
+						"value": "",
 						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
+					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
 				},
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services?dry-run",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -157,12 +153,6 @@
 						"restconf",
 						"data",
 						"services"
-					],
-					"query": [
-						{
-							"key": "dry-run",
-							"value": null
-						}
 					]
 				}
 			},
