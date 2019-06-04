@@ -1,13 +1,13 @@
-logs/
+logs/*
 !logs/.gitkeep
-ncs-cdb/
+ncs-cdb/*
 !ncs-cdb/.gitkeep
-state/
+state/*
 !state/.gitkeep
 packages/cisco-ios
 packages/cisco-iosxr
 .build-meta
-netsim/
+netsim/*
 !netsim/.gitkeep
 setup.mk*
 devices.xml
