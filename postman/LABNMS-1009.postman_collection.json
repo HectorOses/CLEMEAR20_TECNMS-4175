@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "e325d116-b6d5-49eb-8ef5-631b9d307418",
+		"name": "LABNMS-1009",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Show L3VPN Services",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{nso-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{nso-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/yang-data+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/l3vpn",
+					"protocol": "http",
+					"host": [
+						"{{nso-ip}}"
+					],
+					"port": "{{nso-port}}",
+					"path": [
+						"restconf",
+						"data",
+						"services",
+						"l3vpn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create L3VPN Service - Dry-run",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{nso-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{nso-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/yang-data+json",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services?dry-run=native",
+					"protocol": "http",
+					"host": [
+						"{{nso-ip}}"
+					],
+					"port": "{{nso-port}}",
+					"path": [
+						"restconf",
+						"data",
+						"services"
+					],
+					"query": [
+						{
+							"key": "dry-run",
+							"value": "native"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create L3VPN Service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{nso-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{nso-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/yang-data+json"
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services",
+					"protocol": "http",
+					"host": [
+						"{{nso-ip}}"
+					],
+					"port": "{{nso-port}}",
+					"path": [
+						"restconf",
+						"data",
+						"services"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
