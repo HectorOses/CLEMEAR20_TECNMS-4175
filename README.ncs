@@ -1,9 +1,9 @@
 This directory is an NCS project directory.
 
-The directory content in /home/cisco/ncs-run has been generated through
+The directory content in ncs-run has been generated through
 the invocation of:
 
-# /home/cisco/nso-4.7.3.2/bin/ncs-setup --dest /home/cisco/ncs-run
+# /home/cisco/nso572/nso572/bin/ncs-setup --dest ncs-run
 
 The following commands can be used to interact with NCS in this directory:
 
