@@ -4,8 +4,9 @@ ncs-cdb/*
 !ncs-cdb/.gitkeep
 state/*
 !state/.gitkeep
-packages/cisco-ios
-packages/cisco-iosxr
+packages/cisco-ios*
+packages/cisco-iosxr*
+packages/juniper-junos*
 .build-meta
 netsim/*
 !netsim/.gitkeep
