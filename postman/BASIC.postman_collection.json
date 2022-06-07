@@ -32,7 +32,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/devices",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:devices",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -74,7 +74,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"

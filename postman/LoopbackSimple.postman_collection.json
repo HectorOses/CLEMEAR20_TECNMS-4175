@@ -32,7 +32,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/loopbackbasic",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services/loopbackbasic:loopbackbasic",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -75,7 +75,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/loopbackbasic:loopbackbasic=PE_00_loop1",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services/loopbackbasic:loopbackbasic=PE_00_loop1",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
