@@ -11,7 +11,7 @@ show running-config devices device
 ```
 
 
-36.
+33.
 
 ```
 config
@@ -46,13 +46,13 @@ Comment about unified CLI for devices
 show running-config devices device PE_10 config interface Loopback 0
 ```
 
-38.
+37.
 
 ```
 config
-devices device PE_00 config ios:interface Loopback 20
+devices device PE_00 config iinterface Loopback 20
 ip address 10.2.2.2 255.255.255.255
-devices device PE_00 config ios:interface Loopback 30
+devices device PE_00 config interface Loopback 30
 ip address 10.3.3.3 255.255.255.255
 show configuration
 ```
@@ -148,4 +148,36 @@ rollback configuration 10016
 show config
 commit
 ```
+
+FastMap
+--------------
+
+104. End of Fastmap
+
+```
+Load merge l2vpn_exampleA.txt
+show config
+```
+
+```
+show running-config devices device ISR4K_0 config interface Loopback | display service-meta-data
+```
+
+```
+load merge l2vpn_example_Fastmap.txt
+show config
+commit
+```
+
+```
+show running-config devices device ISR4K_0 config interface Loopback | display service-meta-data
+```
+
+```
+no services l2vpn ABC_TEST
+commit dry-run
+commit
+show running-config devices device ISR4K_0 config interface Loopback | display service-meta-data
+```
+
 
