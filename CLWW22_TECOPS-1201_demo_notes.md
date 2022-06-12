@@ -1,17 +1,18 @@
 
 
-Device Manager:
+Device Manager
+------------------
 
 Cisco VS Juniper CLI Style
 
 ```
 show devices list
-show running-config devices device 
-
+show running-config devices device PE_00
 ```
 
-
 33.
+
+Make device PE_00 out-of-sync with NSO CDB
 
 ```
 config
@@ -21,6 +22,8 @@ commit no-networking
 end
 ```
 
+Testing check-sync, sequencial and parallel
+
 ```
 devtools true
 timecmd devices device PE_00 check-sync
@@ -29,6 +32,8 @@ timecmd devices device PE_* check-sync
 timecmd devices check-sync device [ PE_00 PE_01 PE_10 PE_11 PE_20 PE_21 ]
 ```
 
+Testing compare-config
+
 ```
 devices device PE_00 compare-config
 devices device PE_00 sync-from
@@ -36,17 +41,21 @@ devices device PE_00 sync-from
 
 37.
 
+Exploring devices configuration
+
 ```
 show running-config devices device PE_00 config interface Loopback 0
 ```
 
-Comment about unified CLI for devices
+Unified CLI for multi-vendor devices
 
 ```
 show running-config devices device PE_10 config interface Loopback 0
 ```
 
 37.
+
+Configuring a device
 
 ```
 config
@@ -60,6 +69,14 @@ show configuration
 ```
 top
 show config
+```
+
+Commit & Dry-run
+
+```
+commit dry-run
+commit dry-run outformat native
+commit dry-run outformat XML
 ```
 
 ```
@@ -107,48 +124,6 @@ load merge xr_loopback
 show config
 ```
 
-40. 41. Commit & Dry-run
-
-```
-commit dry-run
-commit dry-run outformat native
-commit dry-run outformat XML
-```
-
-42.
-
-From Linux terminal:
-```
-ls -lrt logs/rollback*
-cat logs/rollback100xx
-```
-
-From NSO:
-```
-show configuration commit list
-show configuration commit changes 100xx
-show configuration rollback changes 100XX
-```
-
-43.
-
-```
-rollback configuration 100xx
-show config
-rollback configuration 100xx-1
-show config
-rollback selective 100xx-1
-show config
-rollback configuration 10016 devices device PE_10 config interface Loopback 20
-show config
-```
-
-```
-rollback configuration 10016
-show config
-commit
-```
-
 FastMap
 --------------
 
@@ -180,4 +155,40 @@ commit
 show running-config devices device ISR4K_0 config interface Loopback | display service-meta-data
 ```
 
+42.
 
+Rollback
+------------
+
+From Linux terminal:
+
+```
+ls -lrt logs/rollback*
+cat logs/rollback100xx
+```
+
+From NSO:
+```
+show configuration commit list
+show configuration commit changes 100xx
+show configuration rollback changes 100XX
+```
+
+43.
+
+```
+rollback configuration 100xx
+show config
+rollback configuration 100xx-1
+show config
+rollback selective 100xx-1
+show config
+rollback configuration 10016 devices device PE_10 config interface Loopback 20
+show config
+```
+
+```
+rollback configuration 10016
+show config
+commit
+```
