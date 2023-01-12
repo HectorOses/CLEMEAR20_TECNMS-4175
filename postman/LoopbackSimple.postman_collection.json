@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "f0358032-39fe-409a-bd77-3b97c4d43e9b",
-		"name": "TECNMS-4175_LoopbackSimple",
+		"name": "LoopbackSimple",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -32,7 +32,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/loopbackbasic",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services/loopbackbasic:loopbackbasic",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -75,7 +75,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/loopbackbasic:loopbackbasic=PE_00_loop1",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services/loopbackbasic:loopbackbasic=PE_00_loop1",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"

@@ -20,9 +20,9 @@ class ServiceCallbacks(Service):
         
         for link in service.link:
             device_type = root.devices.device[link.device].device_type.cli.ned_id
-            if device_type ==  'ios-id:cisco-ios':
+            if device_type ==  'cisco-ios-':
                 template.apply('l3vpn-ios-template', vars)
-            elif device_type ==  'cisco-ios-xr-id:cisco-ios-xr':
+            elif device_type ==  'cisco-ios-xr':
                 template.apply('l3vpn-iosxr-template', vars)
         
 

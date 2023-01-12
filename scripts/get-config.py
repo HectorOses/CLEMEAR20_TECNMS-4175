@@ -11,8 +11,8 @@ with ncs.maapi.Maapi() as m:
 
             dev = root.devices.device[device_name]
             hostname = dev.config.cisco_ios_xr__hostname;
-            print "{} hostname: {}".format(device_name, str(hostname)); 
+            print("{} hostname: {}".format(device_name, str(hostname)))
 
             # The following returns parameters for all configured Loopback interfaces
             for Loopback in dev.config.cisco_ios_xr__interface.Loopback:
-                print "Loopback" + str(Loopback.id) + " IP address: " + str(Loopback.ipv4.address.ip)
+                print("Loopback" + str(Loopback.id) + " IP address: " + str(Loopback.ipv4.address.ip))

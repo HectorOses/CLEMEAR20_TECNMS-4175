@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "e6e06b4d-fa2d-40a7-ab44-01dd209f8daa",
-		"name": "TECNMS-4175_L3VPN",
+		"name": "L3VPN",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -32,7 +32,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services/l3vpn",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services/l3vpn:l3vpn",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -85,7 +85,7 @@
 					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
 				},
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services?dry-run=native",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services?dry-run=native",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"
@@ -143,7 +143,7 @@
 					"raw": "{\n    \"l3vpn:l3vpn\": [\n        {\n            \"vpn-name\": \"ACME_10\",\n            \"vpn-id\": 10010,\n            \"customer\": \"ACME\",\n            \"link\": [\n                {\n                    \"link-id\": 1,\n                    \"link-name\": \"Link to CE_0\",\n                    \"device\": \"PE_10\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                },\n                {\n                    \"link-id\": 2,\n                    \"link-name\": \"Link to CE_1\",\n                    \"device\": \"PE_01\",\n                    \"interface\": \"2\",\n                    \"routing-protocol\": \"bgp\"\n                }\n            ]\n        }\n    ]\n}"
 				},
 				"url": {
-					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/services",
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services",
 					"protocol": "http",
 					"host": [
 						"{{nso-ip}}"

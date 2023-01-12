@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "0dda8eed-c78e-4027-83e2-868ef76c11d6",
+		"name": "BASIC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Devices",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{nso-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{nso-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/yang-data+json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:devices",
+					"protocol": "http",
+					"host": [
+						"{{nso-ip}}"
+					],
+					"port": "{{nso-port}}",
+					"path": [
+						"restconf",
+						"data",
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Services",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{nso-password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{nso-user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/yang-data+json"
+					}
+				],
+				"url": {
+					"raw": "http://{{nso-ip}}:{{nso-port}}/restconf/data/tailf-ncs:services",
+					"protocol": "http",
+					"host": [
+						"{{nso-ip}}"
+					],
+					"port": "{{nso-port}}",
+					"path": [
+						"restconf",
+						"data",
+						"services"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
