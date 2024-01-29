@@ -1,0 +1,14 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>l3mplsvpn</name>
+  <package-version>1.0</package-version>
+  <description>L3 MPLS VPN Python and Template Service</description>
+  <ncs-min-version>5.3</ncs-min-version>
+  
+  <component>
+    <name>L3 MPLS VPN</name>
+    <application>
+      <python-class-name>l3mplsvpn.l3mplsvpn.L3MplsVpn</python-class-name>
+    </application>
+  </component>
+
+</ncs-package>
