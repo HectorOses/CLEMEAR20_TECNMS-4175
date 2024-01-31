@@ -4,6 +4,7 @@
 #   https://github.com/hawk/lux.git
 #
 [global target_dir=../../../../../..]
+[config skip_unless=PYTHON]
 
 [shell top]
     !make stop build
@@ -39,7 +40,7 @@
     ?SH-PROMPT:
 
     [progress \nVerify that the service code has been invoked...\n]
-    !tail -f ./logs/ncs-python-vm-loopbackbasic.log
+    !tail -f ./logs/ncs-python-vm-l3mplsvpn.log
     ?.*Worker RUNNING.*
     ?.*Service create.*
     [progress \nVerify that the service code has been invoked...ok\n]

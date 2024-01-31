@@ -5,7 +5,7 @@ all: fxs
 include $(NCS_DIR)/src/ncs/build/include.ncs.mk
 
 SRC = $(wildcard yang/*.yang)
-DIRS = ../load-dir java/src/$(JDIR)/$(NS)
+DIRS = ../load-dir
 FXS = $(SRC:yang/%.yang=../load-dir/%.fxs)
 
 ## Uncomment and patch the line below if you have a dependency to a NED
@@ -23,7 +23,9 @@ $(DIRS):
 
 ../load-dir/%.fxs: yang/%.yang
 	$(NCSC)  `ls $*-ann.yang  > /dev/null 2>&1 && echo "-a $*-ann.yang"` \
-             $(NCSCPATH) -c -o $@ $<
+		--fail-on-warnings \
+		$(NCSCPATH) \
+		-c -o $@ $<
 
 clean:
 	rm -rf $(DIRS)
