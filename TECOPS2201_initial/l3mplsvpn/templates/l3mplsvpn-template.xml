@@ -65,7 +65,7 @@
           </bgp>
           <?end?>
         </router>
-        <interface xmlns="urn:ios" tags="nocreate">
+        <interface xmlns="urn:ios" tags="merge">
           <GigabitEthernet>
             <name>{$INTERFACE}</name>
             <vrf tags="create">
