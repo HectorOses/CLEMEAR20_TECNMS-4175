@@ -13,6 +13,15 @@ load-initial-packages:
 	echo "packages reload force" | ncs_cli -C
 	echo "show packages package oper-status | tab" | ncs_cli -C
 
+load-nano-l3mplsvpn-manual:
+	echo -e "config\nno l3mplsvpn\ncommit" | ncs_cli -C
+	rm -r /var/opt/ncs/packages/*
+	ln -s /opt/ncs/current/packages/neds/cisco-ios-cli-6.100 /var/opt/ncs/packages/
+	ln -s /opt/ncs/current/packages/neds/cisco-iosxr-cli-7.53 /var/opt/ncs/packages/
+	ln -s /opt/ncs/current/packages/neds/juniper-junos-nc-4.14 /var/opt/ncs/packages/
+	cp -r /home/cisco/CLEMEAR20_TECNMS-4175/TECOPS2201_solutions/nano-services-manual-solution/l3mplsvpn /var/opt/ncs/packages/
+	echo "packages reload force" | ncs_cli -C
+	echo "show packages package oper-status | tab" | ncs_cli -C
 
 # Netsim 
 
