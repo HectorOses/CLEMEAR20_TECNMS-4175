@@ -7,40 +7,20 @@ To make sure we start the exercise with the required packages run the following 
 make load-initial-packages
 ```
 
-You should see the following packages under `/var/opt/ncs/packages` directory
+The command might take a while to complete as executes a packages reload inside NSO. When it finishes it will show the output of `show packages package oper-status` showing if the packages were properly loaded
 
 ```bash
-nsoadmin@nso1:/var/opt/ncs$ ls -l packages
-total 8
-lrwxrwxrwx 1 nsoadmin ncsadmin   50 Feb  3 22:44 cisco-ios-cli-6.100 -> /opt/ncs/current/packages/neds/cisco-ios-cli-6.100
-lrwxrwxrwx 1 nsoadmin ncsadmin   51 Feb  3 22:45 cisco-iosxr-cli-7.53 -> /opt/ncs/current/packages/neds/cisco-iosxr-cli-7.53
-lrwxrwxrwx 1 nsoadmin ncsadmin   52 Feb  3 22:45 juniper-junos-nc-4.14 -> /opt/ncs/current/packages/neds/juniper-junos-nc-4.14
-drwxr-xr-x 7 nsoadmin ncsadmin 4096 Feb  3 22:46 l3mplsvpn
-drwxr-xr-x 7 nsoadmin ncsadmin 4096 Feb  3 22:50 loopbackbasic
-nsoadmin@nso1:/var/opt/ncs$ 
-```
-
-Now inside NSO let's reload the packages
-
-```bash
-[PENDING]
-```
-
-Let's verify that we have loaded only the required packages
-
-```bash
-nsoadmin@ncs# show packages package oper-status 
-                                                                                                        PACKAGE                          
-                          PROGRAM                                                                       META     FILE                    
-                          CODE     JAVA           PYTHON         BAD NCS  PACKAGE  PACKAGE  CIRCULAR    DATA     LOAD   ERROR            
-NAME                  UP  ERROR    UNINITIALIZED  UNINITIALIZED  VERSION  NAME     VERSION  DEPENDENCY  ERROR    ERROR  INFO   WARNINGS  
------------------------------------------------------------------------------------------------------------------------------------------
-cisco-ios-cli-6.103   X   -        -              -              -        -        -        -           -        -      -      -         
-cisco-iosxr-cli-7.53  X   -        -              -              -        -        -        -           -        -      -      -         
-l3mplsvpn             X   -        -              -              -        -        -        -           -        -      -      -         
-resource-manager      X   -        -              -              -        -        -        -           -        -      -      -         
-
-nsoadmin@ncs#
+echo "show packages package oper-status | tab" | ncs_cli -C
+                                                                                                         PACKAGE                          
+                           PROGRAM                                                                       META     FILE                    
+                           CODE     JAVA           PYTHON         BAD NCS  PACKAGE  PACKAGE  CIRCULAR    DATA     LOAD   ERROR            
+NAME                   UP  ERROR    UNINITIALIZED  UNINITIALIZED  VERSION  NAME     VERSION  DEPENDENCY  ERROR    ERROR  INFO   WARNINGS  
+------------------------------------------------------------------------------------------------------------------------------------------
+cisco-ios-cli-6.100    X   -        -              -              -        -        -        -           -        -      -      -         
+cisco-iosxr-cli-7.53   X   -        -              -              -        -        -        -           -        -      -      -         
+juniper-junos-nc-4.14  X   -        -              -              -        -        -        -           -        -      -      -         
+l3mplsvpn              X   -        -              -              -        -        -        -           -        -      -      -         
+loopbackbasic          X   -        -              -              -        -        -        -           -        -      -      -         
 ```
 
 Harsh Service Redeploy on Device Offline Changes

@@ -24,32 +24,31 @@ In this task, you will modify the existing service model in two steps. First, yo
 
 > **NOTE:** The final solution for this lab is located in the /home/cisco/[PENDING] directory. You can use it for copying and pasting longer pieces of code and as a reference point for troubleshooting your packages.
 
+To make sure we start the exercise with the required packages run the following under `/var/opt/ncs` directory
+
+```bash
+make load-initial-packages
+```
+
+The command might take a while to complete as executes a packages reload inside NSO. When it finishes it will show the output of `show packages package oper-status` showing if the packages were properly loaded
+
+```bash
+echo "show packages package oper-status | tab" | ncs_cli -C
+                                                                                                         PACKAGE                          
+                           PROGRAM                                                                       META     FILE                    
+                           CODE     JAVA           PYTHON         BAD NCS  PACKAGE  PACKAGE  CIRCULAR    DATA     LOAD   ERROR            
+NAME                   UP  ERROR    UNINITIALIZED  UNINITIALIZED  VERSION  NAME     VERSION  DEPENDENCY  ERROR    ERROR  INFO   WARNINGS  
+------------------------------------------------------------------------------------------------------------------------------------------
+cisco-ios-cli-6.100    X   -        -              -              -        -        -        -           -        -      -      -         
+cisco-iosxr-cli-7.53   X   -        -              -              -        -        -        -           -        -      -      -         
+juniper-junos-nc-4.14  X   -        -              -              -        -        -        -           -        -      -      -         
+l3mplsvpn              X   -        -              -              -        -        -        -           -        -      -      -         
+loopbackbasic          X   -        -              -              -        -        -        -           -        -      -      -         
+```
+
 ### Task 1 Define the Nano Service in YANG
 
 Complete these steps:
-
-1. From VS Code terminal or Putty one, as `nsoadmin` user run the make command to ensure the expected packages are loaded for this task
-
-    ```bash
-    make [PENDING]
-    ```
-
-1. Now we should see the following packages
-
-    ```bash
-    [PENDING]
-    ```
-1. Reload the packages in NSO
-
-    ```bash
-    [PENDING]
-    ```
-
-1. Check that the packages have been loaded without any issues
-
-    ```bash
-    [PENDING]
-    ```
 
 1. Use VS Code to open the `l3mplsvpn.yang` file under `packages/l3mplsvpn/src/yang/`.
 
