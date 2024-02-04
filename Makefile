@@ -3,9 +3,15 @@ export NSO_VERSION=6.1.5
 # Restore packages for exercise
 
 load-initial-packages:
+	echo -e "config\nno l3mplsvpn\ncommit" | ncs_cli -C
 	rm -r /var/opt/ncs/packages/*
-# link neds, copy loopback-basic and l3mplsvpn
-# then use chown to make nsoadmin:ncsadmin the owner
+	ln -s /opt/ncs/current/packages/neds/cisco-ios-cli-6.100 /var/opt/ncs/packages/
+	ln -s /opt/ncs/current/packages/neds/cisco-iosxr-cli-7.53 /var/opt/ncs/packages/
+	ln -s /opt/ncs/current/packages/neds/juniper-junos-nc-4.14 /var/opt/ncs/packages/
+	cp -r /home/cisco/CLEMEAR20_TECNMS-4175/TECOPS2201_initial/l3mplsvpn /var/opt/ncs/packages/
+	cp -r /home/cisco/CLEMEAR20_TECNMS-4175/packages/loopbackbasic /var/opt/ncs/packages/
+	echo "packages reload force" | ncs_cli -C
+	echo "show packages package oper-status | tab" | ncs_cli -C
 
 
 # Netsim 
