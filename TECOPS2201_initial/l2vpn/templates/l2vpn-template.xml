@@ -1,0 +1,86 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0" servicepoint="l2vpn">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <!-- <?foreach {/pe-devices}?> -->
+    <device>
+      <name>{/pe-devices/pe-device}</name>
+      <config>
+        <!-- IOS-XR PE Config -->
+        <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <GigabitEthernet>
+            <id>{pe-ce-interface-id}</id>
+            <shutdown tags="delete"/>
+          </GigabitEthernet>
+          <GigabitEthernet-subinterface>
+            <GigabitEthernet>
+              <id>{pe-ce-interface-id}.{../vlan-id}</id>
+              <mode>l2transport</mode>
+              <mtu>1514</mtu>
+              <encapsulation>
+                <dot1q>
+                  <vlan-id>{/vlan-id}</vlan-id>
+                </dot1q>
+              </encapsulation>
+            </GigabitEthernet>
+          </GigabitEthernet-subinterface>
+        </interface>
+        <l2vpn xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <xconnect>
+            <group>
+              <name>L2VPN-VPWS</name>
+              <p2p>
+                <name>{/name}</name>
+                <interface>
+                  <name>GigabitEthernet{pe-devices/pe-ce-interface-id}.{/vlan-id}</name>
+                </interface>
+                <neighbor>
+                  <address>{pe-devices/neighbor-pe-loopback}</address>
+                  <pw-id>{/pseudowire-id}</pw-id>
+                </neighbor>
+              </p2p>
+            </group>
+          </xconnect>
+        </l2vpn>
+        <!-- IOS PE Config -->
+        <interface xmlns="urn:ios">
+          <GigabitEthernet>
+            <name>{pe-ce-interface-id}</name>
+            <shutdown tags="delete"/>
+            <mtu>1500</mtu>
+            <service>
+              <instance>
+                <id>{../vlan-id}</id>
+                <ethernet/>
+                <encapsulation>
+                  <dot1q>
+                    <id>{vlan-id}</id>
+                  </dot1q>
+                </encapsulation>
+              </instance>
+            </service>
+          </GigabitEthernet>
+        </interface>
+        <l2vpn-xconnect xmlns="urn:ios">
+          <l2vpn>
+            <xconnect>
+              <context>
+                <name>L2VPN-VPWS</name>
+                <member>
+                  <member-list>
+                    <name>GigabitEthernet{pe-ce-interface-id}</name>
+                    <service-instance>{/vlan-id}</service-instance>
+                  </member-list>
+                  <address-list>
+                    <name>{neighbor-pe-loopback}</name>
+                    <vcid>{/pseudowire-id}</vcid>
+                    <encapsulation>mpls</encapsulation>
+                  </address-list>
+                </member>
+              </context>
+            </xconnect>
+          </l2vpn>
+        </l2vpn-xconnect>
+      </config>
+    </device>
+    <!-- <?end?> -->
+  </devices>
+</config-template>

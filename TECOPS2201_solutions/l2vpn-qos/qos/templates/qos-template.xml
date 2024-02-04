@@ -1,0 +1,41 @@
+<!-- Here we find the same servicepoint like in the qos yang file-->
+<config-template xmlns="http://tail-f.com/ns/config/1.0" servicepoint="qos">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <?foreach {/ce-devices}?>
+    <device>
+      <!--
+          Select the devices from some data structure in the service
+          model. In this skeleton the devices are specified in a leaf-list.
+          Select all devices in that leaf-list:
+      -->
+      <name>{ce-device}</name>
+      <config>
+        <!-- With namespace "urn:ios" we explicitly define which YANG model NED to be used to configure the equipment -->
+        <policy-map xmlns="urn:ios">
+        <!-- Here we specify a variable which will be filled directly from the YANG model -->
+          <name>{/policy-name}</name>
+          <class-default>
+            <class>
+              <!-- A static parameter -->
+              <name>class-default</name>
+              <shape>
+                <average>
+                  <bit-rate>{/average-bit-rate}</bit-rate>
+                </average>
+              </shape>
+            </class>
+          </class-default>
+        </policy-map>
+        <interface xmlns="urn:ios">
+          <GigabitEthernet>
+            <name>{lan-ge-interface}</name>
+                <service-policy>
+                  <output>{/policy-name}</output>
+                </service-policy>
+              </GigabitEthernet>
+          </interface>
+      </config>
+    </device>
+    <?end?>
+  </devices>
+</config-template>

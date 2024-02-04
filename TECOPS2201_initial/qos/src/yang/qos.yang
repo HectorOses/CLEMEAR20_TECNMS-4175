@@ -1,0 +1,78 @@
+module qos {
+  namespace "http://com/example/qos";
+  prefix qos;
+
+  import tailf-common {
+    prefix tailf;
+  }
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  description
+    "NSO Training: QoS service";
+
+  revision 2023-12-12 {
+    description
+      "Initial revision.";
+  }
+
+  list qos {
+
+    uses ncs:service-data;
+    // the keyword ncs:servicepoint is used to link a yang model to a configuration template or service code
+    // the service is template-based only. Thus, you will find inside qos-template.xml a link to servicepoint "qos"
+    ncs:servicepoint "qos";
+
+    // service-id identifies the qos service instance
+    key service-id;
+    leaf service-id {
+      // thanks to tailf:info, "Unique service id" description will be printed in the NSO CLI
+      tailf:info "Unique service id";
+      tailf:cli-allow-range;
+      type string;
+    }
+
+    // Exactly 2 devices can be configured by one service instance.
+    // The minimum number of devices to configure is defined by "min-elements".
+    // The maximum number of devices to configure is defined by "max-elements".
+    list ce-devices {
+      min-elements 2;
+      max-elements 2;
+      key ce-device;
+      tailf:info "device name";
+      leaf ce-device {
+        type leafref {
+          // reference to the list of registered devices in NSO
+          // in the path the usage of prefix "ncs" is mandatory because the elements "ncs:devices", "ncs:device" and "ncs:name" are not part of the local yang module
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+      }
+      // The LAN facing interface that the policy-map will be applied to
+      leaf lan-ge-interface {
+        type string;
+      }
+    }
+
+    // the policy-name to be configured on the devices in the leaf-list
+    leaf policy-name {
+      tailf:info "Policy name";
+      // "mandatory true" means that this leaf must be filled. Otherwise NSO won't accept the service instantiation
+      mandatory true;
+      type string;
+    }
+    
+    leaf average-bit-rate {
+      tailf:info "Target Bit Rate (bits per second)";
+      mandatory true;
+      type uint32 {
+        // the predefined type unint32 is locally refined
+        range "8000..max";
+      }
+    }
+  }
+}
+

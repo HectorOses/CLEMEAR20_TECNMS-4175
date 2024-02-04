@@ -1,0 +1,9 @@
+<qos xmlns="http://com/example/qos">
+    <service-id>{$service_id}</service-id>
+    <ce-devices>
+      <ce-device>{$ce_device}</ce-device>
+      <lan-ge-interface>{$lan_ge_interface}</lan-ge-interface>
+    </ce-devices>
+    <policy-name>{$policy_name}</policy-name>
+    <average-bit-rate>{$average_bit_rate}</average-bit-rate>
+</qos>
