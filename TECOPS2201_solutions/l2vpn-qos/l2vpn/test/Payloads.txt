@@ -1,0 +1,24 @@
+l2vpn Customer-B_Sites-2-3
+ pe-devices PE2-IOS
+  neighbor-pe-loopback 10.0.0.13
+  pe-ce-interface-id   3
+ !
+ pe-devices PE3-JunOS
+  neighbor-pe-loopback 10.0.0.12
+  pe-ce-interface-id   0/0/3
+ !
+ pseudowire-id 8888
+ vlan-id       1234
+!
+l2vpn Customer-C_Sites-1-3
+ pe-devices PE1-IOSXR
+  neighbor-pe-loopback 10.0.0.13
+  pe-ce-interface-id   0/0/0/3
+ !
+ pe-devices PE3-JunOS
+  neighbor-pe-loopback 10.0.0.11
+  pe-ce-interface-id   0/0/4
+ !
+ pseudowire-id 1111
+ vlan-id       2222
+!

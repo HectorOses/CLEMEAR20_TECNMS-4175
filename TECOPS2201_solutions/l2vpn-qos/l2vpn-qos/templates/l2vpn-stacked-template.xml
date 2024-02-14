@@ -1,0 +1,10 @@
+<l2vpn xmlns="http://com/example/l2vpn">
+    <name>{$name}</name>
+    <pe-devices>
+      <pe-device>{$pe_device}</pe-device>
+      <neighbor-pe-loopback>{$neighbor_pe_loopback}</neighbor-pe-loopback>
+      <pe-ce-interface-id>{$pe_ce_interface_id}</pe-ce-interface-id>
+    </pe-devices>
+    <pseudowire-id>{$pseudowire_id}</pseudowire-id>
+    <vlan-id>{$vlan_id}</vlan-id>
+</l2vpn>

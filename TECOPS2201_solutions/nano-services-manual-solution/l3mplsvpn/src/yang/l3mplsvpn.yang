@@ -1,0 +1,167 @@
+module l3mplsvpn {
+  namespace "http://example.com/l3mplsvpn";
+  prefix l3mplsvpn;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+
+  description "Service for L3 MPLS VPN provisioning.";
+
+  revision 2020-06-04 {
+    description
+      "Initial revision.";
+  }
+
+  identity l3mplsvpn {
+    base ncs:plan-component-type;
+  }
+
+  identity l3mplsvpn-configured {
+    base ncs:plan-state;
+  } 
+
+
+  ncs:plan-outline l3mplsvpn-plan {
+    description "L3 MPLS VPN Plan";
+    ncs:self-as-service-status;
+
+    ncs:component-type "ncs:self" {
+      ncs:state "ncs:init";
+      ncs:state "ncs:ready";
+    }
+    ncs:component-type "l3mplsvpn:l3mplsvpn" {
+      ncs:state "ncs:init";
+      ncs:state "l3mplsvpn:l3mplsvpn-configured" {
+        ncs:create {
+          ncs:pre-condition {
+            ncs:monitor "/vpn-allocations[vpn-name=$SERVICE/name]/vpn-id";
+          }
+          ncs:nano-callback;
+        }
+      }
+    }
+  } 
+
+  ncs:service-behavior-tree l3mplsvpn-servicepoint {
+    description "L3 MPLS VPN behavior tree";
+    ncs:plan-outline-ref "l3mplsvpn:l3mplsvpn-plan";
+    ncs:selector {
+      ncs:create-component "'self'" {
+        ncs:component-type-ref "ncs:self";
+      }
+      ncs:create-component "'l3mplsvpn'" {
+        ncs:component-type-ref "l3mplsvpn:l3mplsvpn";
+      }
+    }
+  } 
+
+
+  list vpn-allocations {
+    key "vpn-name";
+    unique "vpn-id";
+
+    leaf vpn-name {
+      type leafref {
+        path /l3mplsvpn/name;
+      }
+    }
+
+    leaf vpn-id {
+      type uint16;
+      tailf:info "Unique VPN ID";
+    }
+  }
+
+  list l3mplsvpn {
+    uses ncs:service-data;
+    uses ncs:nano-plan-data;
+    ncs:servicepoint l3mplsvpn-servicepoint;
+    key name;
+
+    leaf name {
+      tailf:info "Service Instance Name";
+      type string;
+    }
+
+    leaf customer {
+      tailf:info "VPN Customer";
+      mandatory true;
+      type leafref {
+        path "/ncs:customers/ncs:customer/ncs:id";
+      }
+    }
+
+    list link {
+      tailf:info "PE-CE Attachment Point";
+      key link-id;
+      min-elements 1;
+
+      leaf link-id {
+        tailf:info "Link ID (1 to 65535)";
+        type uint32 {
+          range "1..65535" {
+            error-message "Link ID is out of range. Should be between 1 and 65535.";
+          }
+        }
+      }
+
+      leaf device {
+        tailf:info "PE Router";
+        mandatory true;
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+        must "starts-with(current(),'PE')" {
+          error-message "Only PE devices can be selected.";
+        }
+      }
+
+      leaf routing-protocol {
+        tailf:info "Routing option for the PE-CE link";
+        type enumeration {
+          enum bgp;
+          enum rip;
+        }
+        default bgp;
+      }
+
+      leaf pe-ip {
+        tailf:info "PE-CE Link IP Address";
+        type inet:ipv4-address {
+            pattern "172.(1[6-9]|2[0-9]|3[0-1])..*" {
+              error-message "Invalid IP address. IP address should be in the 172.16.0.0/12 range.";
+            }
+          }
+      }
+
+      leaf ce-ip {
+        tailf:info "CE Neighbor IP Address";
+        when "../routing-protocol='bgp'";
+          type inet:ipv4-address;
+      }
+
+      leaf rip-net {
+        tailf:info "IP Network for RIP";
+        when "../routing-protocol='rip'";
+          type inet:ipv4-address;
+      }
+
+      leaf interface{
+        tailf:info "Customer Facing Interface";
+        mandatory true;
+        type string;
+        must "count(../../../l3mplsvpn[name != current()/../../name]/link[device = current()/../device]/interface = current()) = 0" {
+            error-message "Interface is already used for another link.";
+        }
+      }
+    }
+  }
+}

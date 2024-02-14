@@ -1,0 +1,50 @@
+module l2vpn {
+  namespace "http://com/example/l2vpn";
+  prefix l2vpn;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  list l2vpn {
+    key name;
+
+    uses ncs:service-data;
+    ncs:servicepoint "l2vpn";
+
+    leaf name {
+      type string;
+    }
+
+    list pe-devices {
+      min-elements 2;
+      max-elements 2;
+      key pe-device;
+
+      leaf pe-device {
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+      }
+      leaf neighbor-pe-loopback {
+        type inet:ipv4-address;
+      }
+      leaf pe-ce-interface-id {
+        type string;
+      }
+
+    }
+
+    leaf pseudowire-id {
+      type uint32;
+    }
+    leaf vlan-id {
+      type uint16 {
+        range "1..4096";
+      }
+    }
+  }
+}
